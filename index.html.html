@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alayo Supply — Premium Building Materials, Lagos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --charcoal:#141414;
+  --rust:#C4622D;
+  --rust-dark:#9E4D22;
+  --rust-light:#E8845A;
+  --gold:#D4A847;
+  --concrete:#E8E0D4;
+  --offwhite:#F5F2EE;
+  --mid:#7A7060;
+  --light-mid:#B0A898;
+  --white:#FFFFFF;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--offwhite);color:var(--charcoal);overflow-x:hidden;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#111;}
+::-webkit-scrollbar-thumb{background:var(--rust);border-radius:3px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;height:76px;
+  background:rgba(20,20,20,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(196,98,45,0.15);
+  transition:all 0.3s;
+}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;}
+.nav-logo-box{
+  width:48px;height:48px;
+  background:linear-gradient(135deg,#2a2a2a,#1a1a1a);
+  border:1px solid rgba(196,98,45,0.4);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--rust);font-weight:600;letter-spacing:0.05em;text-align:center;line-height:1.3;
+}
+.nav-logo-text{display:flex;flex-direction:column;}
+.nav-logo-main{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);line-height:1;}
+.nav-logo-main span{color:var(--rust);}
+.nav-logo-sub{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#444;margin-top:2px;}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--light-mid);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-wa{
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  color:var(--white)!important;
+  padding:10px 20px;border-radius:3px;
+  font-weight:600!important;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-wa:hover{opacity:0.9;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  padding:76px 5vw 0;
+  overflow:hidden;
+  background:var(--charcoal);
+}
+
+/* VIDEO placeholder */
+.hero-video-wrap{
+  position:absolute;inset:0;z-index:0;
+  overflow:hidden;
+}
+/* ↓↓ REPLACE THIS DIV WITH YOUR <video> TAG ↓↓ */
+.hero-video-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(160deg,#2a1f14 0%,#1a1a1a 50%,#0d0d0d 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-video-placeholder-label{
+  font-size:13px;color:#333;letter-spacing:0.12em;text-transform:uppercase;
+  border:1px dashed #2a2a2a;padding:16px 32px;border-radius:2px;
+}
+/* ↑↑ VIDEO PLACEHOLDER END ↑↑ */
+
+/* Dark overlay on top of video */
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    to right,
+    rgba(10,8,6,0.92) 0%,
+    rgba(10,8,6,0.75) 50%,
+    rgba(10,8,6,0.3) 100%
+  );
+}
+.hero-grain{
+  position:absolute;inset:0;z-index:2;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  background-size:250px;pointer-events:none;
+}
+
+/* Animated rust glow */
+.hero-glow{
+  position:absolute;top:-200px;left:-200px;
+  width:700px;height:700px;z-index:2;
+  background:radial-gradient(circle,rgba(196,98,45,0.18) 0%,transparent 65%);
+  animation:glowPulse 4s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes glowPulse{from{opacity:0.6;transform:scale(1);}to{opacity:1;transform:scale(1.15);}}
+
+.hero-rust-bar{position:absolute;left:0;top:0;bottom:0;width:5px;z-index:3;background:linear-gradient(to bottom,var(--rust),var(--rust-dark),transparent);}
+
+.hero-content{position:relative;z-index:4;max-width:680px;padding:100px 0 120px;}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--rust);margin-bottom:28px;
+  opacity:0;animation:fadeUp 0.7s 0.2s forwards;
+}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--rust);}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,6.5vw,92px);
+  font-weight:900;line-height:1.0;
+  color:var(--white);margin-bottom:12px;
+  opacity:0;animation:fadeUp 0.8s 0.35s forwards;
+}
+.hero-title .line2{
+  font-style:italic;
+  background:linear-gradient(90deg,var(--rust-light),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-title .line3{color:var(--concrete);}
+
+.hero-sub{
+  font-size:18px;font-weight:300;line-height:1.75;
+  color:rgba(176,168,152,0.9);max-width:500px;
+  margin:28px 0 48px;
+  opacity:0;animation:fadeUp 0.8s 0.5s forwards;
+}
+
+.hero-actions{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 0.8s 0.65s forwards;
+}
+
+.btn-wa{
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  color:var(--white);padding:18px 36px;border-radius:3px;
+  font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+  box-shadow:0 8px 32px rgba(37,211,102,0.25);
+  transition:all 0.25s;
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,0.35);}
+.btn-wa svg{width:20px;height:20px;fill:currentColor;}
+
+.btn-ghost-light{
+  color:var(--light-mid);font-size:14px;font-weight:500;
+  text-decoration:none;letter-spacing:0.04em;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:color 0.2s;border:1px solid rgba(176,168,152,0.2);
+  padding:17px 28px;border-radius:3px;
+}
+.btn-ghost-light:hover{color:var(--white);border-color:rgba(255,255,255,0.3);}
+
+/* Hero right stats */
+.hero-stats{
+  position:absolute;right:5vw;bottom:80px;z-index:4;
+  display:flex;flex-direction:column;gap:0;
+  opacity:0;animation:fadeLeft 0.9s 0.8s forwards;
+}
+.hero-stat{
+  padding:24px 32px;border-left:1px solid rgba(196,98,45,0.3);
+  transition:border-color 0.2s;
+}
+.hero-stat:hover{border-color:var(--rust);}
+.hero-stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:40px;font-weight:700;color:var(--white);line-height:1;
+}
+.hero-stat-num span{color:var(--rust);}
+.hero-stat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-top:6px;}
+
+/* Hero scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:36px;left:5vw;z-index:4;
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#333;
+  opacity:0;animation:fadeUp 1s 1.2s forwards;
+}
+.scroll-line{width:40px;height:1px;background:#333;animation:scrollPulse 2s infinite;}
+@keyframes scrollPulse{0%,100%{width:40px;}50%{width:60px;}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeLeft{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+
+/* ── TICKER BAND ── */
+.ticker{
+  background:var(--rust);
+  padding:14px 0;overflow:hidden;
+  position:relative;z-index:5;
+}
+.ticker-inner{
+  display:flex;gap:0;white-space:nowrap;
+  animation:ticker 18s linear infinite;
+}
+.ticker-item{
+  font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--white);padding:0 40px;
+  display:flex;align-items:center;gap:14px;
+}
+.ticker-dot{width:5px;height:5px;background:rgba(255,255,255,0.4);border-radius:50%;flex-shrink:0;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ── ABOUT ── */
+.about{
+  background:var(--white);
+  padding:110px 5vw;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.section-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--rust);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-eyebrow::before{content:'';width:24px;height:1px;background:var(--rust);}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(30px,3.5vw,48px);font-weight:700;line-height:1.1;
+  color:var(--charcoal);margin-bottom:24px;
+}
+.about-body{font-size:16px;line-height:1.85;color:#4a4540;margin-bottom:20px;}
+.about-wa-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  color:var(--white);padding:14px 28px;border-radius:3px;
+  font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  text-decoration:none;margin-top:12px;
+  box-shadow:0 6px 24px rgba(37,211,102,0.2);
+  transition:all 0.25s;
+}
+.about-wa-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(37,211,102,0.3);}
+.about-right{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.about-card{
+  padding:36px 28px;display:flex;flex-direction:column;gap:10px;
+  transition:transform 0.25s;
+}
+.about-card:hover{transform:scale(1.02);}
+.about-card:nth-child(1){background:var(--offwhite);}
+.about-card:nth-child(2){background:var(--charcoal);}
+.about-card:nth-child(3){background:var(--rust);}
+.about-card:nth-child(4){background:var(--concrete);}
+.about-card-num{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;line-height:1;}
+.about-card:nth-child(1) .about-card-num{color:var(--rust);}
+.about-card:nth-child(2) .about-card-num{color:var(--concrete);}
+.about-card:nth-child(3) .about-card-num{color:var(--white);}
+.about-card:nth-child(4) .about-card-num{color:var(--rust);}
+.about-card-label{font-size:13px;font-weight:500;line-height:1.4;}
+.about-card:nth-child(1) .about-card-label{color:var(--mid);}
+.about-card:nth-child(2) .about-card-label{color:var(--light-mid);}
+.about-card:nth-child(3) .about-card-label{color:rgba(255,255,255,0.75);}
+.about-card:nth-child(4) .about-card-label{color:var(--mid);}
+
+/* ── PRODUCTS ── */
+.products{background:var(--offwhite);padding:110px 5vw;}
+.products-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;flex-wrap:wrap;gap:24px;}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+.product-card{
+  background:var(--white);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  transition:transform 0.3s,box-shadow 0.3s;
+  cursor:default;
+}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.12);}
+
+/* Image placeholder */
+.product-img{
+  width:100%;height:200px;
+  background:linear-gradient(135deg,#e8e0d4,#d4c9ba);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:10px;
+  position:relative;overflow:hidden;
+  border-bottom:3px solid var(--concrete);
+  transition:border-color 0.3s;
+}
+.product-card:hover .product-img{border-color:var(--rust);}
+.product-img-icon{font-size:40px;opacity:0.4;}
+.product-img-label{
+  font-size:10px;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--mid);
+}
+/* Shimmer effect on image placeholder */
+.product-img::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.3) 50%,transparent 100%);
+  transform:translateX(-100%);
+  animation:shimmer 2.5s infinite;
+}
+@keyframes shimmer{to{transform:translateX(100%);}}
+
+.product-body{padding:28px 24px 32px;flex:1;display:flex;flex-direction:column;}
+.product-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--charcoal);margin-bottom:10px;}
+.product-desc{font-size:13px;line-height:1.7;color:var(--mid);flex:1;}
+.product-uses{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;
+}
+.product-use-tag{
+  font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  background:var(--offwhite);color:var(--rust);
+  padding:4px 10px;border-radius:2px;
+}
+.product-wa{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:20px;
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  color:var(--white);padding:12px;border-radius:2px;
+  font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;transition:opacity 0.2s;
+}
+.product-wa:hover{opacity:0.85;}
+
+/* ── WHY ── */
+.why{
+  background:var(--charcoal);padding:110px 5vw;
+  position:relative;overflow:hidden;
+}
+.why-glow{
+  position:absolute;top:-200px;right:-200px;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(196,98,45,0.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.why-inner{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;position:relative;z-index:2;}
+.why .section-title{color:var(--white);}
+.why-sub{font-size:15px;line-height:1.7;color:var(--mid);margin-top:16px;margin-bottom:36px;}
+.why-wa{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  color:var(--white);padding:14px 24px;border-radius:3px;
+  font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,0.2);
+  transition:all 0.25s;
+}
+.why-wa:hover{transform:translateY(-2px);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;}
+.why-card{
+  background:#1c1c1c;padding:40px 32px;
+  transition:background 0.25s;
+}
+.why-card:hover{background:#222;}
+.why-card-num{
+  font-family:'Playfair Display',serif;
+  font-size:48px;font-weight:700;
+  color:rgba(196,98,45,0.25);line-height:1;
+  margin-bottom:16px;
+  transition:color 0.25s;
+}
+.why-card:hover .why-card-num{color:rgba(196,98,45,0.5);}
+.why-card-title{font-size:16px;font-weight:600;color:var(--concrete);margin-bottom:10px;}
+.why-card-body{font-size:13px;line-height:1.7;color:#555;}
+
+/* ── CTA BAND ── */
+.cta-band{
+  background:linear-gradient(135deg,var(--rust) 0%,var(--rust-dark) 100%);
+  padding:80px 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:40px;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+.cta-band::before{
+  content:'';position:absolute;right:-100px;top:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cta-band-text .section-title{color:var(--white);}
+.cta-band-sub{font-size:17px;line-height:1.7;color:rgba(255,255,255,0.7);margin-top:8px;max-width:520px;}
+.cta-band-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;flex-shrink:0;}
+.btn-wa-large{
+  background:var(--white);color:#1a1a1a;
+  padding:18px 36px;border-radius:3px;
+  font-size:15px;font-weight:700;letter-spacing:0.04em;
+  text-decoration:none;display:inline-flex;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);
+  transition:all 0.25s;
+}
+.btn-wa-large:hover{transform:translateY(-2px);box-shadow:0 12px 48px rgba(0,0,0,0.3);}
+.btn-wa-large svg{width:22px;height:22px;}
+.cta-phone{font-size:22px;font-weight:700;color:var(--white);letter-spacing:0.02em;}
+.cta-phone-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:4px;}
+
+/* ── QUOTE FORM ── */
+.quote-section{
+  background:var(--white);padding:110px 5vw;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+}
+.quote-left-note{
+  font-size:15px;line-height:1.7;color:var(--mid);margin-top:20px;margin-bottom:8px;
+}
+.quote-preferred{
+  display:flex;align-items:center;gap:12px;margin-top:24px;
+  background:var(--offwhite);padding:20px 24px;border-radius:4px;
+  border-left:4px solid #25D366;
+}
+.quote-preferred-text{font-size:13px;color:var(--mid);line-height:1.5;}
+.quote-preferred-text strong{color:var(--charcoal);}
+.quote-form{display:flex;flex-direction:column;gap:16px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-field{display:flex;flex-direction:column;gap:7px;}
+.form-field label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);}
+.form-field input,
+.form-field select,
+.form-field textarea{
+  background:var(--offwhite);border:1px solid #ddd;border-radius:3px;
+  padding:14px 16px;font-size:15px;color:var(--charcoal);
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+  border-color:var(--rust);
+  box-shadow:0 0 0 3px rgba(196,98,45,0.1);
+}
+.form-field textarea{resize:vertical;min-height:110px;}
+.form-submit{
+  background:linear-gradient(135deg,var(--rust),var(--rust-dark));
+  color:var(--white);border:none;border-radius:3px;
+  padding:16px 32px;font-size:14px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;
+  cursor:pointer;font-family:'Inter',sans-serif;
+  transition:all 0.25s;align-self:flex-start;
+  box-shadow:0 6px 24px rgba(196,98,45,0.25);
+}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(196,98,45,0.35);}
+
+/* ── FOOTER ── */
+footer{background:#0d0d0d;padding:64px 5vw 32px;}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;
+  padding-bottom:48px;border-bottom:1px solid #1a1a1a;margin-bottom:32px;
+}
+.footer-logo-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:14px;}
+.footer-logo-name span{color:var(--rust);}
+.footer-tagline{font-size:14px;line-height:1.7;color:#444;max-width:260px;}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#333;margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;color:#444;text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--rust);}
+.footer-contact-item{font-size:13px;color:#444;margin-bottom:8px;display:flex;gap:10px;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:#2a2a2a;}
+.footer-built{font-size:12px;color:#2a2a2a;}
+.footer-built span{color:var(--rust);}
+
+/* Floating WhatsApp Button */
+.wa-float{
+  position:fixed;bottom:32px;right:32px;z-index:300;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#1ebe5d);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 32px rgba(37,211,102,0.4);
+  text-decoration:none;
+  animation:floatPulse 2.5s ease-in-out infinite;
+  transition:transform 0.2s;
+}
+.wa-float:hover{transform:scale(1.1);}
+.wa-float svg{width:28px;height:28px;fill:var(--white);}
+@keyframes floatPulse{
+  0%,100%{box-shadow:0 6px 32px rgba(37,211,102,0.4);}
+  50%{box-shadow:0 6px 48px rgba(37,211,102,0.65);}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .why-inner{grid-template-columns:1fr;gap:48px;}
+  .why-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .about,.quote-section{grid-template-columns:1fr;gap:48px;}
+  .footer-top{grid-template-columns:1fr;gap:36px;}
+  .hero-stats{display:none;}
+  .nav-links{display:none;}
+  .form-row{grid-template-columns:1fr;}
+  .cta-band{flex-direction:column;text-align:center;}
+  .cta-band-actions{justify-content:center;}
+}
+@media(max-width:600px){
+  .products-grid,.why-grid,.about-right{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20your%20building%20materials." class="wa-float" target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-box"><img src="./assets/ALAYO LOGO.jpg" alt="Alayo Supply Logo" style="width:100%;height:auto;"></div>
+    <div class="nav-logo-text">
+      <div class="nav-logo-main">Alayo <span>Supply</span></div>
+      <div class="nav-logo-sub">Building Construction</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Materials</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#quote">Get a Quote</a></li>
+    <li>
+      <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20your%20building%20materials." class="nav-wa" target="_blank">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- VIDEO WRAPPER — replace .hero-video-placeholder with your <video> tag -->
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+  <source src="./assets/202606232010.mp4" type="video/mp4">
+</video>
+  </div>
+  <!-- END VIDEO WRAPPER -->
+
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-rust-bar"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Lagos Premium Building Materials Supplier</div>
+    <h1 class="hero-title">
+      Built on Trust.<br>
+      <span class="line2">Delivered with</span><br>
+      <span class="line3">Reliability.</span>
+    </h1>
+    <p class="hero-sub">
+      From foundations to finishing — Alayo Supply has been powering Lagos construction projects
+      with premium sharp sand, granite, stone base, and filling sand. Quality that contractors stake their reputation on.
+    </p>
+    <div class="hero-actions">
+      <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20your%20building%20materials." class="btn-wa" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us Now
+      </a>
+      <a href="#products" class="btn-ghost-light">View Materials</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10<span>+</span></div>
+      <div class="hero-stat-label">Years of experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Premium materials</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">24<span>hr</span></div>
+      <div class="hero-stat-label">Quote turnaround</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>Sharp Sand</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Granite</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Stone Base</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Filling Sand</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Lagos Delivery</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Big Contracts Welcome</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Premium Quality</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Trusted Supplier</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><span class="ticker-dot"></span>Sharp Sand</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Granite</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Stone Base</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Filling Sand</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Lagos Delivery</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Big Contracts Welcome</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Premium Quality</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Trusted Supplier</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-eyebrow">Who We Are</div>
+    <h2 class="section-title">Lagos Knows Our Name for a Reason</h2>
+    <p class="about-body">Alayo Supply Building Construction has built its reputation one delivery at a time. From residential foundations to major infrastructure contracts, we have been the trusted source of quality building materials for developers and contractors across Lagos.</p>
+    <p class="about-body">Our strength is not just in what we supply — it's in how we operate. Consistent quality, reliable delivery, honest pricing, and the kind of relationship that means you call us first, every time.</p>
+    <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20want%20to%20know%20more%20about%20your%20services." class="about-wa-btn" target="_blank">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat With Us on WhatsApp
+    </a>
+  </div>
+  <div class="about-right">
+    <div class="about-card"><div class="about-card-num">₦M+</div><div class="about-card-label">Value of contracts successfully fulfilled</div></div>
+    <div class="about-card"><div class="about-card-num">100%</div><div class="about-card-label">Client retention on major contracts</div></div>
+    <div class="about-card"><div class="about-card-num">Fast</div><div class="about-card-label">Delivery across all Lagos zones</div></div>
+    <div class="about-card"><div class="about-card-num">4</div><div class="about-card-label">Premium materials always in stock</div></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-eyebrow">What We Supply</div>
+      <h2 class="section-title">Our Materials</h2>
+    </div>
+    <a href="https://wa.me/2348171664968?text=Hello%2C%20I%20want%20to%20request%20pricing%20for%20building%20materials." class="btn-wa" target="_blank" style="padding:14px 28px;font-size:13px;">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Request Pricing
+    </a>
+  </div>
+  <div class="products-grid">
+    <!-- SHARP SAND -->
+    <div class="product-card">
+      <div class="product-img">
+        <!-- Replace with: <img src="your-sharp-sand-image.jpg" alt="Sharp Sand" style="width:100%;height:100%;object-fit:cover;"> -->
+        <div class="product-img-label"><img src="./assets/sharp sand.jpg" alt="Sharp Sand" style="width:100%;height:100%;object-fit:cover;"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Sharp Sand</div>
+        <p class="product-desc">Clean, washed sharp sand ideal for concrete mixing, plastering, and block moulding. Sourced and screened for consistent grading on every load.</p>
+        <div class="product-uses">
+          <span class="product-use-tag">Concrete</span>
+          <span class="product-use-tag">Plaster</span>
+          <span class="product-use-tag">Blocks</span>
+        </div>
+        <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20Sharp%20Sand.%20Please%20send%20me%20pricing." class="product-wa" target="_blank">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Get Pricing
+        </a>
+      </div>
+    </div>
+    <!-- GRANITE -->
+    <div class="product-card">
+      <div class="product-img">
+        <!-- Replace with: <img src="your-granite-image.jpg" alt="Granite" style="width:100%;height:100%;object-fit:cover;"> -->
+        <div class="product-img-label"><img src="./assets/granite.jpg" alt="Sharp Sand" style="width:100%;height:100%;object-fit:cover;"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Granite</div>
+        <p class="product-desc">High-strength crushed granite for structural concrete, foundations, and heavy civil construction. Available in multiple grades to match your spec.</p>
+        <div class="product-uses">
+          <span class="product-use-tag">Foundations</span>
+          <span class="product-use-tag">Structural</span>
+          <span class="product-use-tag">Civil Works</span>
+        </div>
+        <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20Granite.%20Please%20send%20me%20pricing." class="product-wa" target="_blank">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Get Pricing
+        </a>
+      </div>
+    </div>
+    <!-- STONE BASE -->
+    <div class="product-card">
+      <div class="product-img">
+        <!-- Replace with: <img src="your-stone-base-image.jpg" alt="Stone Base" style="width:100%;height:100%;object-fit:cover;"> -->
+        <div class="product-img-label"><img src="./assets/stone base.png" alt="Sharp Sand" style="width:100%;height:100%;object-fit:cover;"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Stone Base</div>
+        <p class="product-desc">Compacted stone base aggregate for road sub-base, drainage layers, and site preparation. Reliable for large-scale infrastructure projects.</p>
+        <div class="product-uses">
+          <span class="product-use-tag">Roads</span>
+          <span class="product-use-tag">Drainage</span>
+          <span class="product-use-tag">Site Prep</span>
+        </div>
+        <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20Stone%20Base.%20Please%20send%20me%20pricing." class="product-wa" target="_blank">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Get Pricing
+        </a>
+      </div>
+    </div>
+    <!-- FILLING SAND -->
+    <div class="product-card">
+      <div class="product-img">
+        <!-- Replace with: <img src="your-filling-sand-image.jpg" alt="Filling Sand" style="width:100%;height:100%;object-fit:cover;"> -->
+
+        <div class="product-img-label"><img src="./assets/filling sand.jpg" alt="Sharp Sand" style="width:100%;height:100%;object-fit:cover;"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">Filling Sand</div>
+        <p class="product-desc">Bulk filling sand for land reclamation, backfill, and site levelling. Delivered in large volumes for major contracts across Lagos.</p>
+        <div class="product-uses">
+          <span class="product-use-tag">Reclamation</span>
+          <span class="product-use-tag">Backfill</span>
+          <span class="product-use-tag">Levelling</span>
+        </div>
+        <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20interested%20in%20Filling%20Sand.%20Please%20send%20me%20pricing." class="product-wa" target="_blank">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Get Pricing
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="why-glow"></div>
+  <div class="why-inner">
+    <div>
+      <div class="section-eyebrow" style="color:var(--rust);">Why Alayo</div>
+      <h2 class="section-title">The Standard Contractors Come Back To</h2>
+      <p class="why-sub">We don't just sell materials — we deliver the confidence that your project will go according to plan.</p>
+      <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20would%20like%20to%20discuss%20a%20contract." class="why-wa" target="_blank">
+        <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:white;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Discuss a Contract
+      </a>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-card-num">01</div><div class="why-card-title">Proven Track Record</div><div class="why-card-body">Years of successfully supplying Lagos' biggest construction projects. Our clients trust us with their most critical timelines.</div></div>
+      <div class="why-card"><div class="why-card-num">02</div><div class="why-card-title">Consistent Quality</div><div class="why-card-body">Every load is exactly what you ordered. No surprises, no substitutions. We stake our reputation on every single delivery.</div></div>
+      <div class="why-card"><div class="why-card-num">03</div><div class="why-card-title">Lagos-Wide Delivery</div><div class="why-card-body">We deliver across all Lagos zones. Large contracts, tight schedules — we show up when and where you need us.</div></div>
+      <div class="why-card"><div class="why-card-num">04</div><div class="why-card-title">Transparent Pricing</div><div class="why-card-body">Fair, honest pricing on every order. Volume discounts for major contracts. No hidden charges, ever.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-text">
+    <h2 class="section-title" style="font-size:clamp(28px,3vw,42px);">Ready to place an order?</h2>
+    <p class="cta-band-sub">Message us on WhatsApp and get a quote within 24 hours. No forms, no waiting — just fast, direct service.</p>
+  </div>
+  <div class="cta-band-actions">
+    <div>
+      <div class="cta-phone-label">Call or WhatsApp</div>
+      <div class="cta-phone">08171664968</div>
+    </div>
+    <a href="https://wa.me/2348171664968?text=Hello%20Alayo%20Supply%2C%20I%20am%20ready%20to%20place%20an%20order." class="btn-wa-large" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Message Us Now
+    </a>
+  </div>
+</div>
+
+<!-- QUOTE FORM -->
+<section class="quote-section" id="quote">
+  <div>
+    <div class="section-eyebrow">Get a Quote</div>
+    <h2 class="section-title">Tell Us What You Need</h2>
+    <p class="quote-left-note">Fill the form and we'll reach out within 24 hours with pricing and availability.</p>
+    <div class="quote-preferred">
+      <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:#25D366;flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <div class="quote-preferred-text"><strong>Prefer faster response?</strong><br>Message us directly on WhatsApp — <a href="https://wa.me/2348081419583" target="_blank" style="color:var(--rust);">08081419583</a></div>
+    </div>
+  </div>
+  <form class="quote-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <div class="form-field"><label>Full Name</label><input type="text" placeholder="Your name" required /></div>
+      <div class="form-field"><label>Phone Number</label><input type="tel" placeholder="08XXXXXXXXX" required /></div>
+    </div>
+    <div class="form-field">
+      <label>Material Needed</label>
+      <select required>
+        <option value="">Select material...</option>
+        <option>Sharp Sand</option>
+        <option>Granite</option>
+        <option>Stone Base</option>
+        <option>Filling Sand</option>
+        <option>Multiple Materials</option>
+      </select>
+    </div>
+    <div class="form-field"><label>Delivery Location (Lagos)</label><input type="text" placeholder="e.g. Lekki Phase 1, Ikeja, Victoria Island..." /></div>
+    <div class="form-field"><label>Additional Details</label><textarea placeholder="Volume needed, delivery timeline, project type..."></textarea></div>
+    <button type="submit" class="form-submit">Send Request →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-name">Alayo <span>Supply</span> Building Construction</div>
+      <p class="footer-tagline">Lagos' trusted source for premium building materials. Supplying contractors and developers across the state.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Quick Links</div>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#products">Our Materials</a></li>
+        <li><a href="#why">Why Choose Us</a></li>
+        <li><a href="#quote">Request a Quote</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-contact-item"><span>📞</span> 08171664968</div>
+      <div class="footer-contact-item"><span>📍</span> Lagos, Nigeria</div>
+      <div class="footer-contact-item"><span>🕐</span> Mon – Sat, 7am – 6pm</div>
+      <div class="footer-contact-item"><span>💬</span> <a href="https://wa.me/2348171664968" target="_blank" style="color:var(--rust);text-decoration:none;">WhatsApp Us</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Alayo Supply Building Construction. All rights reserved.</div>
+    <div class="footer-built">Built by <a href="https://adegbaikewaris-art.github.io/zekrafts.systems/" target="_blank" style="color:var(--rust);text-decoration:none;"><span>Zekraft Systems</span></a></div>
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.querySelector('input[type="text"]').value;
+  const phone = form.querySelector('input[type="tel"]').value;
+  const material = form.querySelector('select').value;
+  const location = form.querySelectorAll('input[type="text"]')[1]?.value || '';
+  const details = form.querySelector('textarea').value;
+  const msg = `Hello Alayo Supply, I would like to request a quote.%0AName: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0AMaterial: ${encodeURIComponent(material)}%0ALocation: ${encodeURIComponent(location)}%0ADetails: ${encodeURIComponent(details)}`;
+  window.open(`https://wa.me/2348171664968?text=${msg}`, '_blank');
+}
+</script>
+</body>
+</html>
